@@ -11,6 +11,9 @@ st.set_page_config(
 
 st.title("🐍 Online Python Compiler")
 
+# Backend URL (update with deployed backend)
+BACKEND_URL = "https://your-backend-service.onrender.com/run"
+
 # Custom CSS for better design
 st.markdown(
     """
@@ -44,16 +47,22 @@ if st.button("▶ Run Code"):
     if code.strip():
         with st.spinner("Running your code..."):
             try:
-                # Send code to backend
-                response = requests.post("http://127.0.0.1:5000/run", json={"code": code})
-                output = response.json().get("output", "Error in execution.")
+                # Send code to backend (Ensure the backend URL is correct)
+                response = requests.post(BACKEND_URL, json={"code": code}, timeout=10)
+
+                if response.status_code == 200:
+                    output = response.json().get("output", "No output received.")
+                else:
+                    output = f"Error: {response.status_code} - {response.text}"
 
                 # Display output
                 st.subheader("📌 Output:")
                 st.code(output, language="text")
 
             except requests.exceptions.RequestException as e:
-                st.error(f"⚠️ Error connecting to the backend: {e}")
+                st.error(f"⚠️ Could not connect to the backend: {e}")
+
     else:
         st.warning("⚠️ Please write some Python code before running.")
+
 
