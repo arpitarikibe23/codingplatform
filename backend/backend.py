@@ -13,7 +13,7 @@ def run_code():
 
         # Run Python code in a subprocess
         process = subprocess.run(
-            ["python3", "-c", code],  # Use "python3" for better compatibility
+            ["python", "-c", code],
             capture_output=True,
             text=True
         )
@@ -26,4 +26,4 @@ def run_code():
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000, debug=True)  # Make sure it listens on all IPs
+    app.run(debug=True, port=5000)
