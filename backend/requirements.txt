@@ -2,3 +2,5 @@ streamlit
 streamlit_ace
 flask
 requests
+gunicorn
+
