@@ -56,3 +56,4 @@ if st.button("▶ Run Code"):
                 st.error(f"⚠️ Error connecting to the backend: {e}")
     else:
         st.warning("⚠️ Please write some Python code before running.")
+
